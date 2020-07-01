@@ -22,8 +22,9 @@ supported.patchlevels=
 # shell variables
 block=/dev/block/bootdevice/by-name/boot;
 is_slot_device=0;
-ramdisk_compression=none;
-customdd="bs=1048576"
+ramdisk_compression=auto;
+no_block_display=true;
+
 
 ## AnyKernel methods (DO NOT CHANGE)
 # import patching functions/variables - see for reference

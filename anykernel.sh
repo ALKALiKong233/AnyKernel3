@@ -40,8 +40,39 @@ if [ -f $split_img/ramdisk.cpio ]; then
   repack_ramdisk;
 fi;
 
-flash_boot;
-flash_dtbo;
-# backup_file init.rc;
+case "$ZIPFILE" in
+  *69fps*|*69hz*)
+    ui_print "  • Setting 69 Hz refresh rate"
+    patch_cmdline "msm_drm.framerate_override" "msm_drm.framerate_override=1"
+    ;;
+  *72fps*|*72hz*)
+    ui_print "  • Setting 72 Hz refresh rate"
+    patch_cmdline "msm_drm.framerate_override" "msm_drm.framerate_override=2"
+    ;;
+  *75fps*|*75hz*)
+    ui_print "  • Setting 75 Hz refresh rate"
+    patch_cmdline "msm_drm.framerate_override" "msm_drm.framerate_override=3"
+    ;;
+  *78fps*|*78hz*)
+    ui_print "  • Setting 78 Hz refresh rate"
+    patch_cmdline "msm_drm.framerate_override" "msm_drm.framerate_override=4"
+    ;;
+  *81fps*|*81hz*)
+    ui_print "  • Setting 81 Hz refresh rate"
+    patch_cmdline "msm_drm.framerate_override" "msm_drm.framerate_override=5"
+    ;;
+  *)
+    patch_cmdline "msm_drm.framerate_override" ""
+    fr=$(cat /sdcard/framerate_override | tr -cd "[0-9]");
+    [ $fr -eq 69 ] && ui_print "  • Setting 69 Hz refresh rate" && patch_cmdline "msm_drm.framerate_override" "msm_drm.framerate_override=1"
+    [ $fr -eq 72 ] && ui_print "  • Setting 72 Hz refresh rate" && patch_cmdline "msm_drm.framerate_override" "msm_drm.framerate_override=2"
+    [ $fr -eq 75 ] && ui_print "  • Setting 75 Hz refresh rate" && patch_cmdline "msm_drm.framerate_override" "msm_drm.framerate_override=3"
+    [ $fr -eq 78 ] && ui_print "  • Setting 78 Hz refresh rate" && patch_cmdline "msm_drm.framerate_override" "msm_drm.framerate_override=4"
+    [ $fr -eq 81 ] && ui_print "  • Setting 81 Hz refresh rate" && patch_cmdline "msm_drm.framerate_override" "msm_drm.framerate_override=5"
+    ;;
+esac
+
+write_boot;
+## end install
 
 ## end install

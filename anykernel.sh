@@ -4,10 +4,10 @@
 ## AnyKernel setup
 # begin properties
 properties() { '
-kernel.string=CannedShroud-R
+kernel.string=ProjectLighthouse Kernel by CannedShroud @ Team-Lighthouse
 do.devicecheck=1
 do.modules=0
-do.systemless=0
+do.systemless=1
 do.cleanup=1
 do.cleanuponabort=1
 device.name1=raphael
@@ -30,15 +30,9 @@ no_block_display=true;
 # import patching functions/variables - see for reference
 . tools/ak3-core.sh;
 
-## AnyKernel install
-# dump_boot;
-split_boot;
 
-if [ -f $split_img/ramdisk.cpio ]; then
-  ui_print "Ramdisk found";
-  unpack_ramdisk;
-  repack_ramdisk;
-fi;
+## AnyKernel install
+dump_boot;
 
 case "$ZIPFILE" in
   *69fps*|*69hz*)
@@ -73,6 +67,4 @@ case "$ZIPFILE" in
 esac
 
 write_boot;
-## end install
-
 ## end install
